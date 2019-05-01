@@ -1,5 +1,12 @@
 package GeneralUtility;
 
+/**
+ * ADT containing static methods to convert Indexing methods ie. going from 2D array indexing to 
+ * 1D array indexing.
+ * 
+ * @author Donisius Wigie
+ *
+ */
 public class IndexConverter {
 
 	public IndexConverter() {

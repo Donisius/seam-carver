@@ -30,7 +30,7 @@ public class verticalGraphRepresentation {
 	
 		for(int i = 0; i < width; i++) {
 			
-			for(int j = 0; j < height; j++) {
+			for(int j = 0; j < height - 1; j++) {
 				
 				/*
 				 * When the pixel being checked is not at the right-most corner of the graph.
@@ -123,7 +123,7 @@ public class verticalGraphRepresentation {
 			/*
 			 * Create the sink vertex.
 			 */
-			graphRepresentation.addEdge(new pixelEdge(IndexConverter.toIndex(i, height, width), 
+			graphRepresentation.addEdge(new pixelEdge(IndexConverter.toIndex(i, height - 1, width), 
 					width*height + 1, 0));
 			
 		}
