@@ -24,7 +24,7 @@ public class pictureGraph {
 	 */
 	public pictureGraph(int numCol, int numRow) {
 		
-		this.V = numCol * numRow;
+		this.V = numCol * numRow + 2;
 		this.numCol = numCol;
 		this.numRow = numRow;
 		this.E = 0;

@@ -45,7 +45,7 @@ public class EnergyCalculator {
 	 * energy of every pixel in a given picture.
 	 */
 	public double[][] getPixelEnergy(){
-		return this.pixelEnergy;
+		return pixelEnergy;
 	}
 	
 	/**
