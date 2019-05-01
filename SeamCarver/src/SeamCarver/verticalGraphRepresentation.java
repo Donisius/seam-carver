@@ -127,7 +127,6 @@ public class verticalGraphRepresentation {
 					width*height + 1, 0));
 			
 		}
-		
 	}
 	
 	/**

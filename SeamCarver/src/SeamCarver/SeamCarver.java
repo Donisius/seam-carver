@@ -1,13 +1,16 @@
 package SeamCarver;
 
+import java.util.ArrayList;
+
 import EnergyCalculator.EnergyCalculator;
+import EnergyCalculator.SeamRemover;
 import GeneralUtility.IndexConverter;
 import PixelGraph.SPSeam;
 import PixelGraph.pixelEdge;
 import edu.princeton.cs.algs4.Picture;
 
 /**
- * Class that acts as a controller for the program.
+ * Abstract data type that acts a the controller for the program.
  * 
  * @author Donisius Wigie
  *
@@ -15,17 +18,12 @@ import edu.princeton.cs.algs4.Picture;
 public class SeamCarver {
 	
 	/**
-	 * Constructor for SeamCarver controller class. Note that the source index is width*height and 
-	 * the sink index is width*height + 1.
+	 * Creates a new picture with a vertical seam removed. Note that the source index is 
+	 * picture.width()*picture.height() and the sink index is picture.width()*picture.height() + 1.
 	 * 
 	 * @param fileName Name of the file containing the picture jpeg image.
 	 */
-	public SeamCarver(String fileName) {
-		
-		/*
-		 * Picture representation of the given jpeg image.
-		 */
-		Picture picture = new Picture(fileName);
+	public static Picture getNextVerticalPicture(Picture picture) {
 		
 		/*
 		 * Array containing the energy of each pixel in the picture.
@@ -43,32 +41,26 @@ public class SeamCarver {
 		 */
 		SPSeam shortestPath = new SPSeam(graphRepresentation.verticalEdgePictureGraph(), 
 				picture.width()*picture.height());
+		System.out.println(shortestPath.distTo(picture.width()*picture.height() + 1));
 		
 		/*
-		 * Print out the Shortest path from source to sink of the graph.
+		 * Put the shortest seam into an array list.
 		 */
-		System.out.println("The shortest path from source to sink:");
-		for(pixelEdge index : shortestPath.pathTo(picture.width()*picture.height() + 1)) {
-			System.out.println(IndexConverter.indexToRow(index.from(), picture.width()) + "," 
-					+ IndexConverter.indexToCol(index.from(), picture.width()) + " -> " +
-					IndexConverter.indexToRow(index.to(), picture.width()) + "," + 
-					IndexConverter.indexToCol(index.to(), picture.width()));
-		}
+		ArrayList<pixelEdge> shortestSeam = new ArrayList<>();
 		
 		for(pixelEdge index : shortestPath.pathTo(picture.width()*picture.height() + 1)) {
 			if(index.from() == picture.width()*picture.height() || index.to() == 
 					picture.width()*picture.height() + 1) {
 				continue;
 			}
-			picture.setRGB(IndexConverter.indexToCol(index.to(), picture.width()), 
-					IndexConverter.indexToRow(index.to(), picture.width()), -1);
-		}
-		picture.show();
-	}
-	
-	public static void main(String[] args) {
+			
+			shortestSeam.add(index);
+		}	
 		
-		new SeamCarver("Pictures/rocks.jpg");
-		
+		/*
+		 * Create the next picture by removing the calculated vertical seam with the lowest energy.
+		 */
+		Picture nextPicture = SeamRemover.removeVerticalSeam(picture, shortestSeam);
+		return nextPicture;
 	}
 }

@@ -84,5 +84,4 @@ public class SPSeam {
 		}
 		return path;
 	}
-	
 }
