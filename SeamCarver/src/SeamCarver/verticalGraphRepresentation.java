@@ -17,9 +17,9 @@ public class verticalGraphRepresentation {
 	
 	/**
 	 * Constructor for the verticalGraphRepresentation class and creates a graph
-	 * representation of a picture with edges going vertically down.
+	 * representation of a picture with edges going towards a vertical sink.
 	 * 
-	 * @param pixelEnergy Graph containing the energy of all the pixels of the graph.
+	 * @param pixelEnergy Array containing the energy of all the pixels of the graph.
 	 * @param width Width of the picture.
 	 * @param height Height of the picture.
 	 */

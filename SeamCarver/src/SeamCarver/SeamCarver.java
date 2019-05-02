@@ -21,7 +21,7 @@ public class SeamCarver {
 	 * Creates a new picture with a vertical seam removed. Note that the source index is 
 	 * picture.width()*picture.height() and the sink index is picture.width()*picture.height() + 1.
 	 * 
-	 * @param fileName Name of the file containing the picture jpeg image.
+	 * @param Picture to remove vertical seam from.
 	 */
 	public static Picture getNextVerticalPicture(Picture picture) {
 		
@@ -63,4 +63,51 @@ public class SeamCarver {
 		Picture nextPicture = SeamRemover.removeVerticalSeam(picture, shortestSeam);
 		return nextPicture;
 	}
+	
+	public static Picture getNextHorizontalPicture(Picture picture) {
+		
+		/*
+		 * Array containing the energy of each pixel in the picture.
+		 */
+		double[][] pixelEnergy = new EnergyCalculator(picture).getPixelEnergy();
+		
+		/*
+		 * Create a horizontal Directed Acyclic Graph using the given picture.	
+		 */
+		horizontalGraphRepresentation graphRepresentation = 
+				new horizontalGraphRepresentation(pixelEnergy, picture.width(), picture.height());
+		
+		/*
+		 * Topologically sort the vertical Directed Acyclic Graph of the given picture.
+		 */
+		SPSeam shortestPath = new SPSeam(graphRepresentation.horizontalEdgePictureGraph(), 
+				picture.width()*picture.height());
+		System.out.println(shortestPath.distTo(picture.width()*picture.height() + 1));
+		
+		/*
+		 * Put the shortest seam into an array list.
+		 */
+		ArrayList<pixelEdge> shortestSeam = new ArrayList<>();
+		
+		for(pixelEdge index : shortestPath.pathTo(picture.width()*picture.height() + 1)) {
+			if(index.from() == picture.width()*picture.height() || index.to() == 
+					picture.width()*picture.height() + 1) {
+				continue;
+			}
+			
+			shortestSeam.add(index);
+		}
+		
+//		for(pixelEdge index : shortestSeam) {
+//			System.out.println(IndexConverter.indexToRow(index.from(), picture.width())
+//					+ "," + IndexConverter.indexToCol(index.from(), picture.width())
+//					+ " -> " + IndexConverter.indexToRow(index.to(), picture.width())
+//					+ "," + IndexConverter.indexToCol(index.to(), picture.width()));
+//		}
+		
+		Picture nextPicture = SeamRemover.removeHorizontalSeam(picture, shortestSeam);
+		return nextPicture;
+	}
+	
+	
 }
