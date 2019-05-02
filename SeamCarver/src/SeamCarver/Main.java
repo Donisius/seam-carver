@@ -6,7 +6,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		Picture picture = new Picture("Pictures/nightking.jpg");
+		Picture picture = new Picture("Pictures/person.jpg");
 		
 		picture.show();
 			
