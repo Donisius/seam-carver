@@ -53,7 +53,7 @@ public class SPSeam {
 	 * Queries whether there is a path to given vertex v.
 	 * 
 	 * @param v Vertex to see if a path from the source exists to.
-	 * @return distTo[v] < Double.POSITIVE_INFINITY.
+	 * @return True if there is a path to given vertex v, False if there is not.
 	 */
 	public boolean hasPathTo(int v) {
 		return distTo[v] < Double.POSITIVE_INFINITY;

@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"SeamCarver","c":"SeamCarver","l":"getNextHorizontalPicture(Picture)","url":"getNextHorizontalPicture(edu.princeton.cs.algs4.Picture)"},{"p":"SeamCarver","c":"SeamCarver","l":"getNextVerticalPicture(Picture)","url":"getNextVerticalPicture(edu.princeton.cs.algs4.Picture)"},{"p":"SeamCarver","c":"SeamCarver","l":"SeamCarver()","url":"%3Cinit%3E()"}]

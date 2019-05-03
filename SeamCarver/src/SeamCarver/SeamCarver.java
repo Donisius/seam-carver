@@ -21,7 +21,8 @@ public class SeamCarver {
 	 * Creates a new picture with a vertical seam removed. Note that the source index is 
 	 * picture.width()*picture.height() and the sink index is picture.width()*picture.height() + 1.
 	 * 
-	 * @param Picture to remove vertical seam from.
+	 * @param picture to remove vertical seam from.
+	 * @return nextPicture the next picture after have the lowest energy vertical seam removed.
 	 */
 	public static Picture getNextVerticalPicture(Picture picture) {
 		
@@ -68,7 +69,8 @@ public class SeamCarver {
 	 * Creates a new picture with a horizontal seam removed. Note that the source index is 
 	 * picture.width()*picture.height() and the sink index is picture.width()*picture.height() + 1.
 	 * 
-	 * @param Picture to remove horizontal seam from.
+	 * @param picture to remove horizontal seam from.
+	 * @return nextPicture the next picture after have the lowest energy vertical seam removed. 
 	 */
 	public static Picture getNextHorizontalPicture(Picture picture) {
 		
