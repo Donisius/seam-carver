@@ -10,7 +10,7 @@ import PixelGraph.pixelEdge;
 import edu.princeton.cs.algs4.Picture;
 
 /**
- * Abstract data type that acts a the controller for the program.
+ * Abstract data type that finds and removes the shortest seam in the given picture.
  * 
  * @author Donisius Wigie
  *
