@@ -17,45 +17,18 @@ import edu.princeton.cs.algs4.Picture;
  */
 public class SeamCarver {
 	
-	
-	private Picture nextPicture;
-	private double[][] nextPixelEnergy;
-	
-	public SeamCarver(String type, Picture picture, double[][] pixelEnergy) {
-		
-		if(type == "vertical" || type == "Vertical") {
-			
-			getNextVerticalPicture(picture, pixelEnergy);
-			
-		}
-		
-		else if(type == "horizontal" || type == "Horizontal") {
-			
-			getNextHorizontalPicture(picture, pixelEnergy);
-			
-		}
-		
-	}
-	
-	public Picture getNewPic() {
-		
-		return this.nextPicture;
-		
-	}
-	
-	public double[][] getPixelEnergy(){
-		
-		return this.nextPixelEnergy;
-		
-	}
-	
 	/**
 	 * Creates a new picture with a vertical seam removed. Note that the source index is 
 	 * picture.width()*picture.height() and the sink index is picture.width()*picture.height() + 1.
 	 * 
 	 * @param Picture to remove vertical seam from.
 	 */
-	private void getNextVerticalPicture(Picture picture, double[][] pixelEnergy) {
+	public static Picture getNextVerticalPicture(Picture picture) {
+		
+		/*
+		 * Array containing the energy of each pixel in the picture.
+		 */
+		double[][] pixelEnergy = new EnergyCalculator(picture).getPixelEnergy();
 		
 		/*
 		 * Create a vertical Directed Acyclic Graph using the given picture.	
@@ -84,14 +57,25 @@ public class SeamCarver {
 			shortestSeam.add(index);
 		}	
 		
-		SeamRemover placeholder = new SeamRemover("vertical", picture, shortestSeam, pixelEnergy);
-		
-		this.nextPicture = placeholder.getNewPic();
-		this.nextPixelEnergy = placeholder.getPixelEnergy();
-		
+		/*
+		 * Create the next picture by removing the calculated vertical seam with the lowest energy.
+		 */
+		Picture nextPicture = SeamRemover.removeVerticalSeam(picture, shortestSeam);
+		return nextPicture;
 	}
 	
-	private void getNextHorizontalPicture(Picture picture, double[][] pixelEnergy) {
+	/**
+	 * Creates a new picture with a horizontal seam removed. Note that the source index is 
+	 * picture.width()*picture.height() and the sink index is picture.width()*picture.height() + 1.
+	 * 
+	 * @param Picture to remove horizontal seam from.
+	 */
+	public static Picture getNextHorizontalPicture(Picture picture) {
+		
+		/*
+		 * Array containing the energy of each pixel in the picture.
+		 */
+		double[][] pixelEnergy = new EnergyCalculator(picture).getPixelEnergy();
 		
 		/*
 		 * Create a horizontal Directed Acyclic Graph using the given picture.	
@@ -120,10 +104,11 @@ public class SeamCarver {
 			shortestSeam.add(index);
 		}
 		
-		SeamRemover placeholder = new SeamRemover("horizontal", picture, shortestSeam, pixelEnergy);
-		
-		this.nextPicture = placeholder.getNewPic();
-		this.nextPixelEnergy = placeholder.getPixelEnergy();
+		/*
+		 * Create the next picture by removing the calculated horizontal seam with the lowest energy.
+		 */
+		Picture nextPicture = SeamRemover.removeHorizontalSeam(picture, shortestSeam);
+		return nextPicture;
 	}
 	
 	

@@ -8,65 +8,19 @@ import edu.princeton.cs.algs4.Picture;
 
 public class SeamRemover {
 	
-	private Picture newPic;
-	private double[][] newPixelEnergy;
-	
-	/**
-	 * Constructor for the SeamRemover Class.
-	 * 
-	 * @param type "vertical" or "Vertical" to remove a vertical seam and "horizontal" or "Horizontal"
-	 * to remove a horizontal seam.
-	 * @param picture Original picture to remove seam from.
-	 * @param shortestSeam Calculated path of the shortest (lowest energy) vertical seam.
-	 * @param pixelEnergy Array of calculated energies of each pixel in the picture.
-	 */
-	public SeamRemover(String type, Picture picture, ArrayList shortestSeam, double[][] pixelEnergy) {
-		
-		if(type == "vertical" || type == "Vertical") {
-			
-			removeVerticalSeam(picture, shortestSeam, pixelEnergy);
-			
-		}
-		
-		else if(type == "horizontal" || type == "Horizontal") {
-			
-			removeHorizontalSeam(picture, shortestSeam, pixelEnergy);
-			
-		}
-		
-	}
-	
-	public Picture getNewPic() {
-		
-		return this.newPic;
-		
-	}
-	
-	public double[][] getPixelEnergy(){
-		
-		return this.newPixelEnergy;
-		
-	}
-	
 	/**
 	 * Create a new picture by removing a vertical seam calculated to have the least amount of energy.
 	 * 
 	 * @param picture Original picture to remove seam from.
 	 * @param shortestSeam Calculated path of the shortest (lowest energy) vertical seam.
-	 * @param pixelEnergy Array of calculated energies of each pixel in the picture.
 	 * @return newPic A new picture with the shortest (lowest energy) vertical seam removed.
 	 */
-	private void removeVerticalSeam(Picture picture, ArrayList shortestSeam, double[][] pixelEnergy) {
+	public static Picture removeVerticalSeam(Picture picture, ArrayList shortestSeam) {
 		
 		/*
 		 * Initialize a picture with 1 less column of pixels.
 		 */
-		this.newPic = new Picture(picture.width() - 1, picture.height());
-		
-		/*
-		 * Initialize a new pixelEnergy array with adjusted positions.
-		 */
-		this.newPixelEnergy = new double[picture.width() - 1][picture.height()];
+		Picture newPic = new Picture(picture.width() - 1, picture.height());
 		
 		/*
 		 * Iterate through the picture searching for pixels to remove.
@@ -100,15 +54,11 @@ public class SeamRemover {
 				 * Set the new coordinates of the picture using the offset as accommodation for the current position
 				 * on the current row of the picture.
 				 */
-				this.newPic.set(j, i, picture.get(j + offset, i));
-				
-				/*
-				 * Set the new coordinates of the pixelEnergy array using the offset as accommodation for the current position
-				 * on the current row of the picture.
-				 */
-				this.newPixelEnergy[j][i] = pixelEnergy[j + offset][i];
+				newPic.set(j, i, picture.get(j + offset, i));
 			}
 		}
+		
+		return newPic;
 	}
 	
 	/**
@@ -116,20 +66,14 @@ public class SeamRemover {
 	 * 
 	 * @param picture Original picture to remove seam from.
 	 * @param shortestSeam Calculated path of the shortest (lowest energy) horizontal seam.
-	 * @param pixelEnergy Array of calculated energies of each pixel in the picture.
 	 * @return newPic A new picture with the shortest (lowest energy) horizontal seam removed.
 	 */
-	private void removeHorizontalSeam(Picture picture, ArrayList shortestSeam, double[][] pixelEnergy) {
+	public static Picture removeHorizontalSeam(Picture picture, ArrayList shortestSeam) {
 		
 		/*
 		 * Initialize a picture with 1 less row of pixels.
 		 */
-		this.newPic = new Picture(picture.width(), picture.height() - 1);
-		
-		/*
-		 * Initialize a new pixelEnergy array with adjusted positions.
-		 */
-		this.newPixelEnergy = new double[picture.width()][picture.height() - 1];
+		Picture newPic = new Picture(picture.width(), picture.height() - 1);
 		
 		/*
 		 * Iterate through the picture searching for pixels to remove.
@@ -161,16 +105,12 @@ public class SeamRemover {
 				
 				/*
 				 * Set the new coordinates of the picture using the offset as accommodation for the current position
-				 * on the current column of the picture.
+				 * on the current col of the picture.
 				 */
-				this.newPic.set(i, j, picture.get(i, j + offset));
-				
-				/*
-				 * Set the new coordinates of the pixelEnergy array using the offset as accommodation for the current position
-				 * on the current row of the picture.
-				 */
-				this.newPixelEnergy[i][j] = pixelEnergy[i][j + offset];
+				newPic.set(i, j, picture.get(i, j + offset));
 			}
 		}
+		
+		return newPic;
 	}
 }
