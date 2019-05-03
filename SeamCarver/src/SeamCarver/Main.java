@@ -1,26 +1,25 @@
 package SeamCarver;
 
 import edu.princeton.cs.algs4.Picture;
+import EnergyCalculator.EnergyCalculator;
 
 public class Main {
 
 	public static void main(String[] args) {
-		
-		Picture picture = new Picture("Pictures/person.jpg");
-		
+	
+		Picture picture = new Picture("Pictures/jetski.png");
 		picture.show();
+		
+		double[][] pixelEnergy = new EnergyCalculator(picture).getPixelEnergy();
+		
+		for(int i = 0; i < 50; i++) {
 			
-		for(int i = 0; i < 50; i++) {
-			picture = SeamCarver.getNextHorizontalPicture(picture);
+			SeamCarver carver = new SeamCarver("vertical", picture, pixelEnergy);
+			picture = carver.getNewPic();
+			pixelEnergy = carver.getPixelEnergy();
 		}
 		
 		picture.show();
-		
-		for(int i = 0; i < 50; i++) {
-			picture = SeamCarver.getNextVerticalPicture(picture);
-		}
-		
-		picture.show();
-		
+	
 	}
 }
